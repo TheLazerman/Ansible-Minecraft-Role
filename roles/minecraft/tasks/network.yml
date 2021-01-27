@@ -1,0 +1,27 @@
+---
+- name: Allow SSH Through Firewall.
+  community.general.ufw:
+    rule: allow
+    name: OpenSSH
+  become: true
+
+- name: Allow Minecraft Server Through Firewall.
+  community.general.ufw:
+    rule: allow
+    port: '25565'
+  become: true
+
+- name: Allow mcrcon Through Firewall.
+  community.general.ufw:
+    rule: allow
+    port: '25575'
+  become: true
+
+- name: Mount the NAS for Backups.
+  mount:
+    fstype: nfs
+    opts: defaults
+    state: mounted
+    src: "10.2.10.4:/mnt/tank/NAS/Backups/Minecraft"
+    path: /opt/minecraft/backups
+  become: true

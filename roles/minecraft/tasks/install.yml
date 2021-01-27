@@ -1,0 +1,8 @@
+---
+- name: Install Packages For Setup (Debian).
+  apt:
+    name: ['git', 'ufw', 'nfs-common', 'build-essential', 'sudo', 'openssh-server']
+    state: present
+    update_cache: yes
+  no_log: no
+  become: true

@@ -1,0 +1,17 @@
+---
+- name: Git mcrcon.
+  git:
+    repo: 'https://github.com/Tiiffi/mcrcon.git'
+    dest: /opt/minecraft/tools/mcrcon
+  become: true
+
+- name: Make mcrcon.
+  make:
+    chdir: /opt/minecraft/tools/mcrcon
+  become: true
+
+- name: Make Install mcrcon.
+  make:
+    chdir: /opt/minecraft/tools/mcrcon
+    target: install
+  become: true

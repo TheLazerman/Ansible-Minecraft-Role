@@ -1,0 +1,9 @@
+---
+- include: install.yml
+- include: network.yml
+- include: files.yml
+- include: config.yml
+- include: mcrcon.yml
+- include: plugins.yml
+- include: openjdk-8.yml
+- include: server.yml

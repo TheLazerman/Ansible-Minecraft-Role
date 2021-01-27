@@ -1,0 +1,16 @@
+---
+- name: Create Minecraft Group.
+  group:
+    name: minecraft
+    state: present
+  become: true
+
+- name: Create Minecraft User.
+  user:
+    name: minecraft
+    groups: [minecraft]
+    shell: /bin/bash
+    home: /opt/minecraft
+    state: present
+    system: yes
+  become: true

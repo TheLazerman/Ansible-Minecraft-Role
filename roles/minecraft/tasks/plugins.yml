@@ -1,0 +1,33 @@
+---
+- name: Get Latest DiscordSRV Plugin Link From Github.
+  uri:
+    url: https://api.github.com/repos/DiscordSRV/DiscordSRV/releases/latest
+    return_content: true
+  register: json_response
+
+- name: Pull the Latest DiscordSRV Plugin.
+  get_url:
+    url: "{{ json_response.json.assets.0.browser_download_url }}"
+    dest: /opt/minecraft/server/plugins/DiscordSRV.jar
+
+- name: Get Latest Dynmap Plugin Link From Github.
+  uri:
+    url: https://api.github.com/repos/webbukkit/dynmap/releases/latest
+    return_content: true
+  register: json_response
+
+- name: Pull the Latest Dynmap Plugin.
+  get_url:
+    url: "{{ json_response.json.assets.6.browser_download_url }}"
+    dest: /opt/minecraft/server/plugins/Dynmap.jar
+
+- name: Get Latest Prometheus-Exporter Plugin Link From Github.
+  uri:
+    url: https://api.github.com/repos/sladkoff/minecraft-prometheus-exporter/releases/latest
+    return_content: true
+  register: json_response
+
+- name: Pull the Latest Prometheus-Exporter Plugin.
+  get_url:
+    url: "{{ json_response.json.assets.0.browser_download_url }}"
+    dest: /opt/minecraft/server/plugins/PrometheusExporter.jar

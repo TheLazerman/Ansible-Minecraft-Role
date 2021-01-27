@@ -1,0 +1,33 @@
+---
+- name: Create Directories For Server Files.
+  file:
+    path: "{{ item }}"
+    state: directory
+    group: minecraft
+    mode: 0775
+  loop:
+    - /opt/minecraft/server
+    - /opt/minecraft/server/plugins
+    - /opt/minecraft/tools
+    - /opt/minecraft/backups
+  become: true
+
+- name: Add Backup Script to tools Dir.
+  copy:
+    dest: /opt/minecraft/tools/backup.sh
+    src: backup.sh
+  become: true
+
+- name: Add Server Files to Server Dir.
+  copy:
+    dest: /opt/minecraft/server/
+    src: "{{ item }}"
+    mode: 0775
+  with_items:
+    - banned-ips.json
+    - banned-players.json
+    - eula.txt
+    - ops.json
+    - server.properties
+    - whitelist.json
+  become: true

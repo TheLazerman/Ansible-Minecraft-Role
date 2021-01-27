@@ -1,0 +1,28 @@
+---
+- name: Add Backup Script to Cron Everyday at 2am.
+  cron:
+    name: "Backup Minecraft Server"
+    minute: "0"
+    hour: "2"
+    job: "/opt/minecraft/tools/backup.sh"
+  become: true
+
+- name: Download Paper Server.
+  get_url:
+    url: https://papermc.io/api/v2/projects/paper/versions/1.16.5/builds/444/downloads/paper-1.16.5-444.jar
+    dest: /opt/minecraft/server/server.jar
+    mode: '0755'
+
+- name: Create Minecraft Service.
+  copy:
+    dest: /etc/systemd/system/minecraft.service
+    src: minecraft.service
+  become: true
+
+- name: Enable and Start Minecraft Service.
+  systemd:
+    name: minecraft
+    daemon_reload: yes
+    state: started
+    enabled: yes
+  become: true
