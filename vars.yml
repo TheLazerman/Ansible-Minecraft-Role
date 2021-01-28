@@ -1,0 +1,17 @@
+server_port: "25565"
+server_memory: "G"
+
+# Required
+server_version: "1.16.5"
+server_pvp: "TRUE"
+server_onlinemode: "TRUE"
+server_name: "CUBE"
+server_difficulty: "normal"
+server_maxplayers: "20"
+server_icon: ""
+server_showachievements: "TRUE"
+server_ops: "Lazerman595" # Example: "notch, wlad"
+server_motd: "Cube Be With You."
+
+# Optional
+world_location: "/home/mine/data/world" # world locatiom, default: "/home/mine/data/world"

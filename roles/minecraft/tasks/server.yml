@@ -23,6 +23,6 @@
   systemd:
     name: minecraft
     daemon_reload: yes
-    state: started
+    state: restarted
     enabled: yes
   become: true

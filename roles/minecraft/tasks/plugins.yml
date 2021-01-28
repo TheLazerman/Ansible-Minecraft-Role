@@ -9,6 +9,13 @@
   get_url:
     url: "{{ json_response.json.assets.0.browser_download_url }}"
     dest: /opt/minecraft/server/plugins/DiscordSRV.jar
+  become: true
+
+- name: Copy DiscordSRV Config.
+  copy:
+    dest: /opt/minecraft/server/plugins/DiscordSRV/
+    src: config.yml
+  become: true
 
 - name: Get Latest Dynmap Plugin Link From Github.
   uri:
@@ -20,6 +27,7 @@
   get_url:
     url: "{{ json_response.json.assets.6.browser_download_url }}"
     dest: /opt/minecraft/server/plugins/Dynmap.jar
+  become: true
 
 - name: Get Latest Prometheus-Exporter Plugin Link From Github.
   uri:
@@ -31,3 +39,26 @@
   get_url:
     url: "{{ json_response.json.assets.0.browser_download_url }}"
     dest: /opt/minecraft/server/plugins/PrometheusExporter.jar
+  become: true
+
+
+- name: Get the latest Paper Server Build Number.
+  uri:
+    url: https://papermc.io/api/v2/projects/paper/versions/{{ server_version }}
+    return_content: true
+  register: server_build_json
+
+- name: Get the latest Paper Server Build Commit Messages.
+  uri:
+    url: https://papermc.io/api/v2/projects/paper/versions/{{ server_version }}/builds/{{ server_build_json.json.builds | last }}
+  register: this
+  debug: 
+    msg: "{{ this.changes.0.message }}"
+
+- name: Download the latest Paper Server Build. 
+  get_url:
+    url: https://papermc.io/api/v2/projects/paper/versions/{{ server_version }}/builds/{{ server_build_json.json.builds | last }}/downloads/paper-1.16.5-{{ server_build_json.json.builds | last }}.jar
+    # dest: /opt/minecraft/server/paper-{{ server_version }}-{{ server_build_json.json.builds | last }}.jar
+    dest: /opt/minecraft/server/server.jar
+  become: true
+  noitify: restart.minecraft
