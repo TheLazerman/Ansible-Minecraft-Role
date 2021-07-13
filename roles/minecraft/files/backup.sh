@@ -3,7 +3,7 @@
 function rcon {
         /opt/minecraft/tools/mcrcon/mcrcon -H 10.2.10.15 -p Bigdonkypassword13 "$1"
 }
-
+rcon "say Server backup has begun..."
 rcon "save-off"
 rcon "save-all"
 #wrap it up, compress it, remove owner/group, dont backup dynmap tiles(huge) and stick it on the nas
@@ -11,3 +11,5 @@ tar --owner=0 --group=0 -cvpzf /opt/minecraft/backups/server-$(date +%F).tar.gz 
 ## Delete older backups to prevent clutter
 find /opt/minecraft/backups/ -type f -mtime +7 -name '*.gz' -delete
 
+rcon "save-on"
+rcon "say Backup Complete"

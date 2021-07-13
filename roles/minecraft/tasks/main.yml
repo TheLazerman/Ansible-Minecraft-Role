@@ -1,9 +1,9 @@
 ---
-- include: install.yml
-- include: network.yml
-- include: files.yml
-- include: config.yml
-- include: mcrcon.yml
-- include: plugins.yml
-- include: openjdk-8.yml
-- include: server.yml
+- include: apt_install.yml
+- include: configure_network.yml
+- include: create_dirs.yml
+- include: create_user.yml
+- include: install_mcrcon.yml
+- include: install_plugins.yml
+- include: install_openjdk-8.yml
+- include: setup_server.yml
